@@ -71,6 +71,6 @@
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button (click)="saveQuote()" mat-raised-button color="primary">Calculate Quote</button>
+    <button (click)="saveQuote()" mat-raised-button color="primary" [disabled]="!quoteForm?.valid">Calculate Quote</button>
   </mat-card-actions>
 </mat-card>

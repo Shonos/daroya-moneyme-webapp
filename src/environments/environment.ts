@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  moneymeappurl: 'https://daroya-moneymeapi.herokuapp.com'
+  moneymeappurl: 'https://localhost:44337'
 };
 
 /*

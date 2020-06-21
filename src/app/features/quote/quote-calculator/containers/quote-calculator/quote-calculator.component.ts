@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { QuoteCalculatorService } from './quote-calculator.service';
 import { QuoteDto } from 'src/app/api/models';
 import { Observable } from 'rxjs/internal/Observable';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'dmiw-quote-calculator',
@@ -33,6 +34,9 @@ export class QuoteCalculatorComponent implements OnInit {
         this.term = q.term;
       });
     }
+    else {
+      alert('Page does not handle creating new record yet. Please use swagger of backend server to create new quote then open page with given url. ' + environment.moneymeappurl);
+    }
   }
 
   onAmountChange(event: any) {
@@ -48,8 +52,10 @@ export class QuoteCalculatorComponent implements OnInit {
       this.quoteCalculatorService.saveQuote().then(s => {
         // route to new page
         this.router.navigate(['/quote/applyquote'], { queryParamsHandling: 'preserve' });
-      }).catch(
+      }).catch((e) => {
         // alert
+        alert(`Error in submitting quote. ${e}`);
+        }
       );
     });
   }
@@ -68,13 +74,13 @@ export class QuoteCalculatorComponent implements OnInit {
 
   createQuoteFormGroup(fb: FormBuilder) {
     return fb.group({
-      title: '',
-      firstName: '',
-      lastName: '',
+      title: [''],
+      firstName: ['', [Validators.required, Validators.maxLength(50)]],
+      lastName: ['', [Validators.required, Validators.maxLength(50)]],
       amount: 0,
       term: 0,
-      email: '',
-      mobile: ''
+      email: ['', [Validators.required, Validators.maxLength(50)]],
+      mobile: ['', [Validators.required, Validators.maxLength(50)]]
     });
   }
 
