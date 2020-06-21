@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuoteCalculatorService } from './quote-calculator.service';
 import { QuoteDto } from 'src/app/api/models';
 import { Observable } from 'rxjs/internal/Observable';
@@ -16,7 +16,8 @@ export class QuoteCalculatorComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private quoteCalculatorService: QuoteCalculatorService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private router: Router) {
     this.quote = quoteCalculatorService.quote;
   }
 
@@ -35,19 +36,22 @@ export class QuoteCalculatorComponent implements OnInit {
   }
 
   onAmountChange(event: any) {
-    // this.quote.subscribe(q => {
-    //   q.amount = event;
-    //   // this.quoteForm.get('amount').setValue(event);
-    //   this.quoteCalculatorService.updateQuote({...q});
-    // });
+    this.amount = event;
   }
 
   onTermChange(event: any) {
-    // this.quote.subscribe(q => {
-    //   q.term = event;
-    //   // this.quoteForm.get('term').setValue(event);
-    //   this.quoteCalculatorService.updateQuote({...q});
-    // });
+    this.term = event;
+  }
+
+  saveQuote() {
+    this.formToQuote().then(()=> {
+      this.quoteCalculatorService.saveQuote().then(s => {
+        // route to new page
+        this.router.navigate(['/quote/applyquote'], { queryParamsHandling: 'preserve' });
+      }).catch(
+        // alert
+      );
+    });
   }
 
   toQuoteForm(quote: QuoteDto) {
@@ -71,6 +75,23 @@ export class QuoteCalculatorComponent implements OnInit {
       term: 0,
       email: '',
       mobile: ''
+    });
+  }
+
+  formToQuote(): Promise<QuoteDto> {
+    // theres probably a better way to do this
+    return new Promise<QuoteDto>((resolve) => {
+      this.quoteCalculatorService.getQuoteAsync().then(q => {
+        q.title = this.quoteForm.get('title').value;
+        q.firstName = this.quoteForm.get('firstName').value;
+        q.lastName = this.quoteForm.get('lastName').value;
+        q.amount = this.amount;
+        q.term = this.term;
+        q.email = this.quoteForm.get('email').value;
+        q.mobile = this.quoteForm.get('mobile').value;
+        this.quoteCalculatorService.updateQuote(q);
+        resolve();
+      });
     });
   }
 

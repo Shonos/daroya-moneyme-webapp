@@ -1,0 +1,47 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Your Quote</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div style="display: flex; flex-direction: column">
+      <div style="display:flex; flex-direction: row; width: 100%; justify-content: space-between;">
+        <span>Your Information</span>
+        <span><a [routerLink]="['/quote/calculator']" queryParamsHandling="merge" >
+          Edit
+        </a></span>
+      </div>
+      <div style="display:flex; flex-direction: row; width: 100%; justify-content: space-between;">
+        <span>Name</span>
+        <span>{{(quote | async)?.firstName}} {{(quote | async)?.lastName}}</span>
+      </div>
+      <div style="display:flex; flex-direction: row; width: 100%; justify-content: space-between;">
+        <span>Mobile</span>
+        <span>{{(quote | async)?.mobile}}</span>
+      </div>
+      <div style="display:flex; flex-direction: row; width: 100%; justify-content: space-between;">
+        <span>Email</span>
+        <span>{{(quote | async)?.email}}</span>
+      </div>
+      <div style="display:flex; flex-direction: row; width: 100%; justify-content: space-between;">
+        <span>Finance Details</span>
+        <span><a [routerLink]="['/quote/calculator']" queryParamsHandling="merge" >
+          Edit
+        </a></span>
+      </div>
+      <div style="display:flex; flex-direction: row; width: 100%; justify-content: space-between;">
+        <span>Finance Amount</span>
+        <span>{{(quote | async)?.amount | currency}} over {{(quote | async)?.term}} months</span>
+      </div>
+      <div style="display:flex; flex-direction: row; width: 100%; justify-content: space-between;">
+        <span>Repayments From</span>
+        <span>{{((quote | async)?.amount * 1.123) / ((quote | async)?.term * 4)  | currency}} weekly</span>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button (click)="applyQuote()" mat-raised-button color="primary">Apply Now</button>
+  </mat-card-actions>
+  <mat-card-footer>
+    Total repayments {{(repayments | async) | currency}} made up on an establishment fee of $300 and interest of {{((quote | async)?.amount / (quote | async)?.term * 1.123 * 4) | currency}}
+  </mat-card-footer>
+</mat-card>

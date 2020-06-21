@@ -91,6 +91,54 @@
           }
         }
       }
+    },
+    "/api/Quote/EditQuoteAndSave": {
+      "post": {
+        "tags": [
+          "Quote"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditQuoteAndSaveRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditQuoteAndSaveRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditQuoteAndSaveRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditQuoteAndSaveResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditQuoteAndSaveResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditQuoteAndSaveResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -129,6 +177,18 @@
           "amount": {
             "type": "number",
             "format": "double"
+          },
+          "repayments": {
+            "type": "number",
+            "format": "double"
+          },
+          "establishmentFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalInterest": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
@@ -165,6 +225,28 @@
           "quote": {
             "$ref": "#/components/schemas/QuoteDTO"
           },
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EditQuoteAndSaveRequest": {
+        "type": "object",
+        "properties": {
+          "quote": {
+            "$ref": "#/components/schemas/QuoteDTO"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EditQuoteAndSaveResponse": {
+        "type": "object",
+        "properties": {
           "isSuccess": {
             "type": "boolean"
           },

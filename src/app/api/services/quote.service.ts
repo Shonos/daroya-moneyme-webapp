@@ -10,6 +10,8 @@ import { map, filter } from 'rxjs/operators';
 
 import { CreateQuoteRequest } from '../models/create-quote-request';
 import { CreateQuoteResponse } from '../models/create-quote-response';
+import { EditQuoteAndSaveRequest } from '../models/edit-quote-and-save-request';
+import { EditQuoteAndSaveResponse } from '../models/edit-quote-and-save-response';
 import { GetQuoteResponse } from '../models/get-quote-response';
 
 @Injectable({
@@ -202,6 +204,95 @@ export class QuoteService extends BaseService {
 
     return this.apiQuoteGetQuoteGet$Json$Response(params).pipe(
       map((r: StrictHttpResponse<GetQuoteResponse>) => r.body as GetQuoteResponse)
+    );
+  }
+
+  /**
+   * Path part for operation apiQuoteEditQuoteAndSavePost
+   */
+  static readonly ApiQuoteEditQuoteAndSavePostPath = '/api/Quote/EditQuoteAndSave';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiQuoteEditQuoteAndSavePost$Plain()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiQuoteEditQuoteAndSavePost$Plain$Response(params?: {
+      body?: EditQuoteAndSaveRequest
+  }): Observable<StrictHttpResponse<EditQuoteAndSaveResponse>> {
+
+    const rb = new RequestBuilder(this.rootUrl, QuoteService.ApiQuoteEditQuoteAndSavePostPath, 'post');
+    if (params) {
+
+
+      rb.body(params.body, 'application/*+json');
+    }
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: 'text/plain'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<EditQuoteAndSaveResponse>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiQuoteEditQuoteAndSavePost$Plain$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiQuoteEditQuoteAndSavePost$Plain(params?: {
+      body?: EditQuoteAndSaveRequest
+  }): Observable<EditQuoteAndSaveResponse> {
+
+    return this.apiQuoteEditQuoteAndSavePost$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<EditQuoteAndSaveResponse>) => r.body as EditQuoteAndSaveResponse)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiQuoteEditQuoteAndSavePost$Json()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiQuoteEditQuoteAndSavePost$Json$Response(params?: {
+      body?: EditQuoteAndSaveRequest
+  }): Observable<StrictHttpResponse<EditQuoteAndSaveResponse>> {
+
+    const rb = new RequestBuilder(this.rootUrl, QuoteService.ApiQuoteEditQuoteAndSavePostPath, 'post');
+    if (params) {
+
+
+      rb.body(params.body, 'application/*+json');
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<EditQuoteAndSaveResponse>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiQuoteEditQuoteAndSavePost$Json$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiQuoteEditQuoteAndSavePost$Json(params?: {
+      body?: EditQuoteAndSaveRequest
+  }): Observable<EditQuoteAndSaveResponse> {
+
+    return this.apiQuoteEditQuoteAndSavePost$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<EditQuoteAndSaveResponse>) => r.body as EditQuoteAndSaveResponse)
     );
   }
 
