@@ -1,0 +1,15 @@
+<div style="display: flex; flex-direction: row; justify-content: space-between">
+  <div style="width: 100%">
+    <mat-slider
+    (input)="onInputChange($event)"
+    thumbLabel
+    tickInterval="1"
+    min="min"
+    max="max"></mat-slider>
+  </div>
+
+  <span>{{ min }}</span>
+  <span>How much do you need</span>
+  <span>{{ max }}</span>
+</div>
+

@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  moneymeappurl: 'https://localhost:44337/'
 };

@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: 'calculator',
     loadChildren: () =>
-    import('./quote-calculator/components/quote-calculator/quote-calculator.module').then(m => m.QuoteCalculatorModule)
+    import('./quote-calculator/containers/quote-calculator/quote-calculator.module').then(m => m.QuoteCalculatorModule)
   }
 ];
 
