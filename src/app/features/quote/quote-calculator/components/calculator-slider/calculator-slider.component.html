@@ -1,15 +1,18 @@
-<div style="display: flex; flex-direction: row; justify-content: space-between">
+<div style="display: flex; flex-direction: column;">
   <div style="width: 100%">
     <mat-slider
-    (input)="onInputChange($event)"
     thumbLabel
-    tickInterval="1"
-    min="min"
-    max="max"></mat-slider>
+    [min]="min"
+    [max]="max"
+    [displayWith]="formatLabel"
+    (change)="onSliderChange($event)"
+    [(ngModel)]="amount"></mat-slider>
   </div>
 
-  <span>{{ min }}</span>
-  <span>How much do you need</span>
-  <span>{{ max }}</span>
+  <div style="display: flex; flex-direction: row; justify-content: space-between">
+    <span>{{currency}}{{ min }}</span>
+    <span>{{ label }}</span>
+    <span>{{currency}}{{ max }}</span>
+  </div>
 </div>
 

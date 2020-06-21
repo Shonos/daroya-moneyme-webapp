@@ -2,3 +2,14 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-slider-thumb-label {
+  width: 50px !important;
+  height: 50px !important;
+  right: -25px !important;
+  top: -70px !important;
+}
+
+mat-form-field {
+  width: 100%;
+}

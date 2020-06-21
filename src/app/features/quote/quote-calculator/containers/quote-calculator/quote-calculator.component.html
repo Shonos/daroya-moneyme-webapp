@@ -3,11 +3,74 @@
     <mat-card-title>Quote Calculator</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <dmiw-calculator-slider [amount]="" [min]="22" [max]="1000"></dmiw-calculator-slider>
-    {{(quote | async)?.email}}
+    <form [formGroup]="quoteForm" style="width: 100%">
+      <div class="form-container">
+        <div class="form-row">
+          <span style="width: 100%; margin: 4px 2px">
+            <dmiw-calculator-slider
+            [min]="2100"
+            [max]="15000"
+            [currency]="'$'"
+            [amount]="amount"
+            (sliderChanged)="onAmountChange($event)"
+            label="How much do you need?"></dmiw-calculator-slider>
+          </span>
+        </div>
+        <div class="form-row">
+          <span style="width: 100%; margin: 4px 2px">
+            <dmiw-calculator-slider
+            [min]="1"
+            [max]="120"
+            [currency]=""
+            [amount]="term"
+            (sliderChanged)="onTermChange($event)"
+            label="Months to pay (Term)"></dmiw-calculator-slider>
+          </span>
+        </div>
+        <div class="form-row">
+          <span style="width: 70px">
+            <mat-form-field>
+              <mat-label>Title</mat-label>
+              <mat-select formControlName="title">
+                <mat-option *ngFor="let title of titles" [value]="title">{{title}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </span>
+
+          <span style="width: 100px">
+            <mat-form-field>
+              <mat-label>First Name</mat-label>
+              <input formControlName="firstName" matInput placeholder="John">
+            </mat-form-field>
+          </span>
+
+          <span style="width: 100px">
+            <mat-form-field>
+              <mat-label>Last Name</mat-label>
+                <input formControlName="lastName" matInput placeholder="Green">
+            </mat-form-field>
+          </span>
+        </div>
+
+        <div class="form-row">
+          <span style="width: 200px">
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+                <input formControlName="email" matInput placeholder="sample@gmail.com">
+            </mat-form-field>
+          </span>
+
+          <span style="width: 120px">
+            <mat-form-field>
+              <mat-label>Mobile Number</mat-label>
+                <input formControlName="mobile" matInput placeholder="094325641234">
+            </mat-form-field>
+          </span>
+        </div>
+      </div>
+    </form>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
+    <button mat-raised-button color="primary">Calculate Quote</button>
   </mat-card-actions>
 </mat-card>

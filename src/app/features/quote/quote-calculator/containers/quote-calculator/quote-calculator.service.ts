@@ -14,13 +14,20 @@ export class QuoteCalculatorService {
   }
 
   loadQuote(quoteId: string) {
-    this.quoteBehaviorSubject.next(null);
-    return this.quoteService.apiQuoteGetQuoteGet$Json({quoteId}).subscribe(
-      r => {
-        if (r.isSuccess) {
-          this.quoteBehaviorSubject.next(r.quote);
+    return new Promise<QuoteDto>((resolve, reject) => {
+      this.quoteBehaviorSubject.next(null);
+      return this.quoteService.apiQuoteGetQuoteGet$Json({ quoteId }).subscribe(
+        r => {
+          if (r.isSuccess) {
+            this.quoteBehaviorSubject.next(r.quote);
+            resolve(this.quoteBehaviorSubject.value);
+          }
         }
-      }
-    );
+      );
+    });
+  }
+
+  updateQuote(quote: QuoteDto) {
+    this.quoteBehaviorSubject.next(quote);
   }
 }

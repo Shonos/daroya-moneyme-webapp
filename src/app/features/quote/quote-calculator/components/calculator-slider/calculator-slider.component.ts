@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, OnChanges, SimpleChanges, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'dmiw-calculator-slider',
@@ -7,13 +7,22 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CalculatorSliderComponent implements OnInit {
-  @Input() amount: number;
   @Input() min: number;
   @Input() max: number;
+  @Input() currency: string;
+  @Input() label = '';
+  @Output() sliderChanged = new EventEmitter<number>();
+  @Input() amount: number ;
+
   ngOnInit(): void {
 
   }
-  onInputChange(event: any) {
-    console.log(event.value);
+
+  formatLabel(value: number) {
+    return `${value}`;
+  }
+
+  onSliderChange($event) {
+    this.sliderChanged.emit($event.value);
   }
 }
